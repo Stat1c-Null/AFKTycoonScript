@@ -6,10 +6,12 @@ local character = player.Character
 local humanoid = character:WaitForChild("Humanoid")
 --Set Desired speed over here
 local Speed = 80
---Change key press for running
-local RunKey = Enum.KeyCode.LeftControl
---Key press to set constant speed
-local SetKey = Enum.KeyCode.RightControl
+--Jump Height
+local JumpHeight = 300
+--Keys
+local RunKey = Enum.KeyCode.LeftControl--Change key press for running
+local SetKey = Enum.KeyCode.RightControl--Key press to set constant speed
+local JumpKey = Enum.KeyCode.C--Power jump
 local SpeedSet = false
 local UIS = game:GetService("UserInputService")
 
@@ -34,6 +36,13 @@ game:GetService("RunService").RenderStepped:Connect(function()
         elseif input.KeyCode == SetKey and SpeedSet == true then
             humanoid.WalkSpeed = 16
             SpeedSet = false
+        end
+    end)
+    --power jump
+    UIS.InputBegan:Connect(function(input)
+        if input.KeyCode == JumpKey then
+            humanoid.JumpPower = JumpHeight
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
         end
     end)
 end)
